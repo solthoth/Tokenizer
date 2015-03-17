@@ -12,6 +12,8 @@ var
   TokenFile = "Tokens.TXT"
 
 func HexString() string {
+  // The following function was copied from stack-overflow
+  // http://stackoverflow.com/questions/15130321/is-there-a-method-to-generate-a-uuid-with-go-language
   u := make([]byte,16)
   _, err := rand.Read(u)
   if err != nil {
@@ -24,7 +26,10 @@ func HexString() string {
 }
 
 func KeyValue(Size int) string {
+  //Get a new hex string (return value is 32 characters in length)
   token := HexString()
+  //only return the requested size from the 32 character hex value
+  //  the below statement says return substring from index 0 to Size-1
   return token[:Size]
 }
 
@@ -48,8 +53,13 @@ func TokenExists(key string) bool {
 }
 
 func SaveToken(value, key string) {
+  //incomplete method
+  //this method saves the value and the key into a file
   fOut, writeError := os.Create(TokenFile)
   defer fOut.Close()
+  if writeError != nil {
+    return
+  }
 }
 
 func booltostr(val bool) string {
@@ -61,11 +71,15 @@ func booltostr(val bool) string {
 }
 
 func main() {
+  //Creates a reader from the standard input (in this case from the os command line)
   reader := bufio.NewReader(os.Stdin)
   fmt.Println("Enter value to save")
+  //reads a full string up to the carriage return from the standard input
   value, _ := reader.ReadString('\n')
   fmt.Printf("You entered %s",value)
+  //create a key to use as the replacement value from the input
   key := KeyValue(9)
-  fmt.Println(key)
+  fmt.Println(key+" ",(len(key)))
+  //Determine if the "key" (token) has already been used
   fmt.Println("Does key exists? ",TokenExists(key))
 }

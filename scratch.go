@@ -83,3 +83,5 @@ func main() {
   //Determine if the "key" (token) has already been used
   fmt.Println("Does key exists? ",TokenExists(key))
 }
+
+//This is a test comment

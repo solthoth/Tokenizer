@@ -82,4 +82,6 @@ func main() {
   fmt.Println(key+" ",(len(key)))
   //Determine if the "key" (token) has already been used
   fmt.Println("Does key exists? ",TokenExists(key))
+
+  fmt.Println("Change for QA")
 }
